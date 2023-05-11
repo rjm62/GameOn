@@ -11,19 +11,19 @@
 /* Landing Page */
 
 body {
-  margin: 0;
   display: flex;
   flex-direction: column;
   background-image: url("background.png");
   font-family: var(--font-default);
-  font-size: 18px;
-  max-width: 1300px;
+  font-size: 16px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
 p {
   margin-bottom: 0;
   padding: 0.5vw;
+  font-size: 1.1em;
 }
 
 img {
@@ -36,6 +36,7 @@ img {
 }
 .header-logo {
     float: left;
+    padding-left: 3.5vw;
 }
 .main-navbar {
     float: right;
@@ -47,29 +48,36 @@ img {
   text-align: center;
   padding: 12px 12px;
   margin: 5px;
-  text-decoration: none;
-  font-size: 20px;
+  text-decoration:none;
+  font-size: 16px;
   font-family: Roboto, sans-serif;
 }
+
 
 .topnav a:hover {
   background-color: #ff0000;
   color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 5px;
   border-radius: 15px;
 }
 
-.topnav a.active {
+/*.topnav a.active {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
-}
+}*/
 
 .topnav .icon {
   display: none;
+  color: #ff0000;
+  font-size: 1.5em;
 }
 
-@media screen and (max-width: 768px) {
-  .topnav a {display: none;}
+/*@media screen and (max-width: 768px) {
+  .topnav a {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
@@ -77,16 +85,27 @@ img {
 }
 
 @media screen and (max-width: 768px) {
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {position: relative;
+    background-color: green;
+  }
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
     top: 0;
+    background-color: #3876ac;
   }
   .topnav.responsive a {
     float: none;
     display: block;
     text-align: left;
+    background-color: yellow;
+    margin-left: 250px;
+  }
+  .header-logo img {
+    width: 109px;
+  }
+  .hero-headline {
+    font-size: 0.2em;
   }
 }
 
@@ -97,17 +116,16 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
   }
-} 
+}*/
 
 main {
   font-size: 130%;
   font-weight: bolder;
   color: black;
   padding-top: 0.5vw;
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
@@ -115,21 +133,29 @@ main {
 
 }
 
-.modal-btn {
+/*.btn-signup {
   font-size: 145%;
   background: #fe142f;
   display: flex;
   margin: auto;
-  padding: 2em;
   color: #fff;
   padding: 0.75rem 2.5rem;
   border-radius: 1rem;
   cursor: pointer;
+}*/
+
+/*.btn-signup {
+  outline: none;
+  text-transform: capitalize;
+  font-size: 1.3rem;
+  padding: 15px 23px;
+  margin: 0;
+  margin-top: 59px;
 }
 
-.modal-btn:hover {
+.btn-signup:hover {
   background: #3876ac;
-}
+}*/
 
 .footer {
   margin: 20px;
@@ -146,7 +172,7 @@ main {
   color: #fff;
   border-radius: 15px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 0.2em;
 }
 
 .button:hover {
@@ -163,7 +189,6 @@ main {
   z-index: 1;
   left: 0;
   top: 0;
-  height: 100%;
   width: 100%;
   overflow: auto;
   background-color: rgba(26, 39, 156, 0.4);
@@ -179,6 +204,7 @@ main {
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+  top:0;
   color: #fff;
   padding-top: 10px;
 }
@@ -242,22 +268,23 @@ input[data-error]::after {
 .checkbox-label .checkbox-icon,
 .checkbox2-label .checkbox-icon {
   display: block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #279e7a;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #fff;
   border-radius: 50%;
   text-indent: 29px;
   white-space: nowrap;
   position: absolute;
-  left: -30px;
-  top: -1px;
+  left: -35px;
+  top: -5px;
   transition: 0.3s;
+  cursor: pointer;
 }
 .checkbox-label .checkbox-icon::after,
 .checkbox2-label .checkbox-icon::after {
   content: "";
-  width: 13px;
-  height: 13px;
+  width: 15px;
+  height: 15px;
   background-color: #279e7a;
   border-radius: 50%;
   text-indent: 29px;
@@ -269,6 +296,14 @@ input[data-error]::after {
   transition: 0.3s;
   opacity: 0;
 }
+
+.checkbox-label .checkbox-icon::before {
+  content:"";
+  border-color: #279e7a;
+}
+
+
+
 .checkbox-input {
   display: none;
 }
@@ -333,6 +368,7 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
+
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -402,25 +438,25 @@ input[data-error]::after {
 /* custom select end */
 .text-label {
   font-weight: normal;
-  font-size: 16px;
+  font-size: 18px;
 }
 .hero-section {
-  min-height: 93vh;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   overflow: hidden;
   box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
+  overflow-wrap: break-word;
 }
 .hero-content {
-  padding: 51px 67px;
-  grid-column: span 4;
+  padding: 60px 50px;
+  grid-column: span 5;
   background: #232323;
   color: #fff;
   position: relative;
   text-align: left;
-  min-width: 424px;
+  min-width: 320px;
 }
 .hero-content::after {
   content: "";
@@ -428,7 +464,7 @@ input[data-error]::after {
   height: 100%;
   background: #232323;
   position: absolute;
-  right: -80px;
+  right: 0;
   top: 0;
 }
 .hero-content > * {
@@ -436,26 +472,60 @@ input[data-error]::after {
   z-index: 1;
 }
 .hero-headline {
-  font-size: 6rem;
-  font-weight: normal;
+  font-size: 6.3rem;
+  font-weight:500;
   white-space: nowrap;
+  
 }
 .hero-text {
-  width: 146%;
-  font-weight: normal;
+  width: 100%;
+  font-weight:500;
   margin-top: 57px;
-  padding: 0;
+  padding: 0px;
 }
-.btn-signup {
+/*.btn-signup {
   outline: none;
   text-transform: capitalize;
   font-size: 1.3rem;
   padding: 15px 23px;
   margin: 0;
   margin-top: 59px;
+}*/
+
+.btn-signup {
+  outline: none;
+  text-transform: capitalize;
+  font-size: 1.7rem;
+  padding: 10px 23px;
+  margin: 0;
+  margin-top: 59px;
 }
+
+.btn-signup:hover {
+  background: #3876ac;
+}
+
+
+/*.btn-signup {
+  background: #fe142f;
+  display: block;
+  margin: 0 auto;
+  border-radius: 7px;
+  font-size: 1rem;
+  padding: 12px 82px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+}*/
+
+
+
+
+
+
+
 .hero-img {
-  grid-column: span 8;
+  grid-column: span 7;
 }
 .hero-img img {
   width: 100%;
@@ -477,8 +547,8 @@ footer {
   padding-left: 2vw;
   padding-right: 2vw;
   margin: 0 20px;
-}
-@media screen and (max-width: 800px) {
+} 
+@media screen and (max-width: 1100px) {
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -487,6 +557,7 @@ footer {
     background: #fff;
     color: #000;
     padding: 20px;
+    z-index: 0;
   }
   .hero-content::after {
     content: unset;
@@ -495,7 +566,7 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     white-space: normal;
   }
   .hero-text {
@@ -515,7 +586,86 @@ footer {
     margin-top: 50px;
     text-align: center;
   }
+  .btn-signup {
+    font-size: 0.9em;
+  }
+  .header-logo img {
+    width: 200px;
+  }
+  .topnav a {
+    padding: 12px 5px;
+  }
 }
+
+@media screen and (max-width: 768px) {
+header {
+  display:block;
+}
+
+.bground {
+  top:100px;
+  color: transparent;
+}
+  .topnav.responsive {position: relative;
+  }
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    overflow: auto;
+    display: block;
+    text-align: left;
+    margin-left: 50px;
+    padding: 5px 12px;
+    margin-bottom: 10px;
+  }
+  .header-logo {
+    padding-top: 20px;
+    max-width: 500px;
+    width: 80%;
+  }
+  .header-logo img {
+    width: 130px;
+  }
+  .hero-headline {
+    font-size: 2em;
+    font-weight: 600;
+  }
+  main {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+  .copyrights {
+    margin-top: 0px;
+    font-size: 0.6em;
+  }
+  .hero-text {
+    font-size: 0.65em;
+  }
+  .btn-signup {
+    font-size: 0.7em;
+  }
+  .topnav a {
+    padding: 12px 5px;
+    margin: 0;
+  }
+}
+
+
+
+ @media screen and (max-width: 540px) {
+  .topnav a {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+  .hero-headline {
+    font-size: 1.7em;
+}
+ }
 
 @keyframes modalopen {
   from {
