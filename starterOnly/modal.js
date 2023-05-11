@@ -1,3 +1,5 @@
+var bgroundPosition = 0;
+
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -26,33 +28,40 @@ returnHomePage.addEventListener("click", launchModa2);
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-  modalbg.style.backgroundColor = "transparent";
-  displayHeader.style.display = "none";
   displayHeroSection.style.display = "none";
-  displayFooter.style.display ="none"; 
+  displayFooter.style.display ="none";
+  modalbg.style.backgroundColor ="transparent"
 
-  
+  if (window.matchMedia("(max-width:768px)").matches) {
+  displayHeader.style.display = "block" 
+  }
+
+  else {
+    displayHeader.style.display = "none"  
+  }
 }
 
-
+// fonction suite à action sur croix pour fermeture inscription
 function launchModa2() {
   modalbg.style.display = "none";
-  modalbg.style.backgroundColor ="white";
-  displayHeader.style.display = "flex";
-  displayHeader.style.display = "none";
+  modalbg.style.backgroundColor ="white"
+  displayHeader.style.display = "flex"
   displayHeroSection.style.display = "grid";
   displayFooter.style.display ="block";
- 
 }
 
-                         /* page en  mobile pour l'inscription
+// Déplacement de .bground pour laisser la place au menu déroulant
+const clickIcon = document.querySelector(".icon");
+clickIcon.addEventListener("click", bgroundMove);
 
-if (window.matchMedia("(max-width:768px)").matches) {
-  displayHeader.style.display = "block";
-  modalbg.style.backgroundColor = "transparent";
-  modalbg.style.top= "300px";
-  
-}
+function bgroundMove() {
+  if ( bgroundPosition<1) {
+    modalbg.style.top = "200px";
+    bgroundPosition=1;
+  }
   else {
-    modalbg.style.top= "-100px"; 
-  }*/
+    modalbg.style.top = "70px";
+    bgroundPosition=0; 
+  }
+
+}

@@ -598,13 +598,8 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-header {
-  display:block;
-}
-
 .bground {
-  top:100px;
-  color: transparent;
+  top:70px;
 }
   .topnav.responsive {position: relative;
   }
@@ -653,8 +648,6 @@ header {
     margin: 0;
   }
 }
-
-
 
  @media screen and (max-width: 540px) {
   .topnav a {display: none;}
