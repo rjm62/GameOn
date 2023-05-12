@@ -68,56 +68,14 @@ img {
   border-radius: 15px;
 }*/
 
+
 .topnav .icon {
   display: none;
   color: #ff0000;
   font-size: 1.5em;
 }
 
-/*@media screen and (max-width: 768px) {
-  .topnav a {
-    display: none;
-  }
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
 
-@media screen and (max-width: 768px) {
-  .topnav.responsive {position: relative;
-    background-color: green;
-  }
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    background-color: #3876ac;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-    background-color: yellow;
-    margin-left: 250px;
-  }
-  .header-logo img {
-    width: 109px;
-  }
-  .hero-headline {
-    font-size: 0.2em;
-  }
-}
-
-
-
- @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}*/
 
 main {
   font-size: 130%;
@@ -483,14 +441,6 @@ input[data-error]::after {
   margin-top: 57px;
   padding: 0px;
 }
-/*.btn-signup {
-  outline: none;
-  text-transform: capitalize;
-  font-size: 1.3rem;
-  padding: 15px 23px;
-  margin: 0;
-  margin-top: 59px;
-}*/
 
 .btn-signup {
   outline: none;
