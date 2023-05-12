@@ -554,6 +554,7 @@ footer {
     box-shadow: unset;
   }
   .hero-content {
+    display: block;
     background: #fff;
     color: #000;
     padding: 20px;
@@ -567,6 +568,7 @@ footer {
   }
   .hero-headline {
     font-size: 3.5rem;
+    font-weight: 600;
     white-space: normal;
   }
   .hero-text {
@@ -598,6 +600,12 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+  .hero-content {
+    display: block;
+  }
+  .hero-section {
+    display: block;
+  }
 .bground {
   top:70px;
 }

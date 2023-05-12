@@ -31,12 +31,10 @@ function launchModal() {
   displayHeroSection.style.display = "none";
   displayFooter.style.display ="none";
   modalbg.style.backgroundColor ="transparent"
-
   if (window.matchMedia("(max-width:768px)").matches) {
   displayHeader.style.display = "block" 
   }
-
-  else {
+  else { 
     displayHeader.style.display = "none"  
   }
 }
@@ -45,9 +43,14 @@ function launchModal() {
 function launchModa2() {
   modalbg.style.display = "none";
   modalbg.style.backgroundColor ="white"
-  displayHeader.style.display = "flex"
-  displayHeroSection.style.display = "grid";
+  displayHeader.style.display = "block"
   displayFooter.style.display ="block";
+  if (window.matchMedia("(max-width:1100px)").matches) {
+    displayHeroSection.style.display = "block";
+    }
+    else { 
+      displayHeroSection.style.display = "grid"; 
+    }
 }
 
 // Déplacement de .bground pour laisser la place au menu déroulant
