@@ -22,49 +22,123 @@ const displayFooter = document.querySelector("footer");
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
-returnHomePage.addEventListener("click", launchModa2);
+returnHomePage.addEventListener("click", closeModal);
 
 
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-  displayHeroSection.style.display = "none";
-  displayFooter.style.display ="none";
-  modalbg.style.backgroundColor ="transparent"
-  if (window.matchMedia("(max-width:768px)").matches) {
-  displayHeader.style.display = "block" 
-  }
-  else { 
-    displayHeader.style.display = "none"  
-  }
 }
 
-// fonction suite à action sur croix pour fermeture inscription
-function launchModa2() {
+ //fonction fermeture modal form
+function closeModal() {
   modalbg.style.display = "none";
-  modalbg.style.backgroundColor ="white"
-  displayHeader.style.display = "block"
-  displayFooter.style.display ="block";
-  if (window.matchMedia("(max-width:1100px)").matches) {
-    displayHeroSection.style.display = "block";
-    }
-    else { 
-      displayHeroSection.style.display = "grid"; 
-    }
 }
 
-// Déplacement de .bground pour laisser la place au menu déroulant
-const clickIcon = document.querySelector(".icon");
-clickIcon.addEventListener("click", bgroundMove);
+ //  VERIFICATION ENTREES FORMULAIRE
+var first = document.querySelector("#first"); 
+var last = document.querySelector("#last");
+var email = document.querySelector("#email");
+var birthdate = document.querySelector("#birthdate");
+var state
+first.addEventListener("change", firstCheck);
+last.addEventListener("change", lastCheck);
+email.addEventListener("change", emailCheck);
+birthdate.addEventListener("change", birthdateCheck);
 
-function bgroundMove() {
-  if ( bgroundPosition<1) {
-    modalbg.style.top = "200px";
-    bgroundPosition=1;
+
+
+                        // VERIFICATION DU PRENOM
+function firstCheck() {
+  let check = document.forms["reserve"].elements["first"].value;
+  let regFirst=new RegExp("^[a-z]+[a-z\-_]{1}[a-z]+$", "i");
+  let result=(regFirst.test(check));
+    
+  if (result===true) {
+    var text = document.querySelector(".first");
+    text.dataset.errorVisible = "false";  
+    var border = document.querySelector("#first");
+    border.dataset.errorVisible ="false";
+    return false;
   }
+    
   else {
-    modalbg.style.top = "70px";
-    bgroundPosition=0; 
+    var text = document.querySelector(".first");
+    text.dataset.error = "Veuillez entrer un prénom valide";
+    text.dataset.errorVisible = "true"; 
+    var border = document.querySelector("#first");
+    border.dataset.errorVisible ="true";
   }
 
 }
+                          //VERIFICATION DU NOM
+function lastCheck() {
+  let check = document.forms["reserve"].elements["last"].value;
+  let regLast=new RegExp("^[a-z]+[a-z\_]+[a-z]+$", "i");
+  let result=(regLast.test(check));
+    
+  if (result===true) {
+    var text = document.querySelector(".last");
+    text.dataset.errorVisible = "false";  
+    var border = document.querySelector("#last");
+    border.dataset.errorVisible ="false";
+  }
+    
+  else {
+    var text = document.querySelector(".last");
+    text.dataset.error = "Veuillez entrer un Nom valide";
+    text.dataset.errorVisible = "true"; 
+    var border = document.querySelector("#last");
+    border.dataset.errorVisible ="true";
+  }
+
+}
+
+                           //VERIFICATION DE LA DATE DE NAISSANCE
+ function birthdateCheck() {
+  let check = document.forms["reserve"].elements["birthdate"].value;
+  let regDate=new RegExp("^[0-3]{1}[0-9]{1}[/]{1}[01]{1}[0-9]{1}[/]{1}[12]{1}[2-9]{3}$");
+  let result= (regDate.test(check));
+    
+  if (result===true) {
+    var text = document.querySelector(".birthdate");
+    text.dataset.errorVisible = "false";
+  
+  var border = document.querySelector("#birthdate");
+  border.dataset.errorVisible ="false";
+  }
+    
+  else {
+    var text = document.querySelector(".birthdate");
+    text.dataset.error = "Veuillez entrer une date valide";
+    text.dataset.errorVisible = "true";
+  
+  var border = document.querySelector("#birthdate");
+  border.dataset.errorVisible ="true";
+  }
+ }
+                            //VERIFICATION EMAIL
+ function emailCheck() {
+  let check = document.forms["reserve"].elements["email"].value;
+  let regEmail=new RegExp("^[a-z]+[a-z0-9\.\-_]*[a-z0-9]+@[a-z0-9]+[a-z0-9\.\-_]*[a-z0-9]+$", "i");
+  let result= (regEmail.test(check));
+    
+  if (result===true) {
+    var text = document.querySelector(".email");
+    text.dataset.errorVisible = "false";
+  
+  var border = document.querySelector("#email");
+  border.dataset.errorVisible ="false";
+  }
+    
+  else {
+    var text = document.querySelector(".email");
+    text.dataset.error = "Veuillez entrer un mail valide";
+    text.dataset.errorVisible = "true";
+  
+  var border = document.querySelector("#email");
+  border.dataset.errorVisible ="true";
+  }
+ }
+ 
+

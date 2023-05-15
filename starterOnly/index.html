@@ -15,7 +15,8 @@
         <div class="header-logo">
           <img alt="logo" src="Logo.png">
         </div>
-        <div class="main-navbar">    
+        <div class="main-navbar">  
+          <a href="#" class="active"><span>&nbsp;Accueil&nbsp;</span></a> 
           <a href="#"><span>&nbsp;Détails de l'évènement&nbsp;</span></a>
           <a href="#"><span>&nbsp;À propos&nbsp;</span></a>
           <a href="#"><span>&nbsp;Contact&nbsp;</span></a>
@@ -47,42 +48,43 @@
               action="index.html"
               method="get"
               onsubmit="return validate();">
-              <div class="formData">
-                <label>Prénom</label><br>
+              <div class="formData first">
+                <label for="first">Prénom</label><br>
                 <input
                   class="text-control"
                   type="text"
                   id="first"
                   name="first"
-                  minlength=2><br>
+                  minlength="2"><br>
               </div>
-              <div class="formData">
-                <label>Nom</label><br>
+              <div class="formData last">
+                <label for="last">Nom</label><br>
                 <input
                   class="text-control"
                   type="text"
                   id="last"
                   name="last"><br>
               </div>
-              <div class="formData">
-                <label>E-mail</label><br>
+              <div class="formData email">
+                <label for="email">E-mail</label><br>
                 <input
                   class="text-control"
                   type="email"
                   id="email"
                   name="email"><br>
               </div>
-              <div class="formData">
-                <label>Date de naissance</label><br>
+              <div class="formData birthdate" >
+                <label for="birthate">Date de naissance</label><br>
                 <input
                   class="text-control"
                   type="date"
-                  id="birthdate"
-                  name="birthdate"><br>
+                  id="birthdate" 
+                  name="birthdate"
+                  data-error-visible="false"><br>
               </div>
               <div class="formData">
-                <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min=0 max=99>
+                <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div class="formData">
