@@ -46,6 +46,14 @@ last.addEventListener("change", lastCheck);
 email.addEventListener("change", emailCheck);
 birthdate.addEventListener("change", birthdateCheck);
 
+      //  RECUPERATION: "DONNEES PERSONNELLES" "COCHE SUR CONDITIONS GENERALES"  "NOMBRE DE TOURNOIS"  "CHOIX COMPETITION"
+var firstValidationResult;
+var lastValidationResult;
+var emailCheckValidationResult;
+var birthdateCheckValidationResult;      
+var conditionAccepted = document.forms["reserve"].elements["checkbox1"].checked;
+var choiceCompetition = document.forms["reserve"].elements["location"].value; 
+var numberCompetition = document.forms["reserve"].elements["quantity"].value;
 
 
                         // VERIFICATION DU PRENOM
@@ -53,15 +61,14 @@ function firstCheck() {
   let check = document.forms["reserve"].elements["first"].value;
   let regFirst=new RegExp("^[a-z]+[a-z\-_]{1}[a-z]+$", "i");
   let result=(regFirst.test(check));
-    
+  firstValidationResult = result;
+
   if (result===true) {
     var text = document.querySelector(".first");
     text.dataset.errorVisible = "false";  
     var border = document.querySelector("#first");
     border.dataset.errorVisible ="false";
-    return false;
-  }
-    
+  } 
   else {
     var text = document.querySelector(".first");
     text.dataset.error = "Veuillez entrer un prénom valide";
@@ -69,21 +76,20 @@ function firstCheck() {
     var border = document.querySelector("#first");
     border.dataset.errorVisible ="true";
   }
-
 }
                           //VERIFICATION DU NOM
 function lastCheck() {
   let check = document.forms["reserve"].elements["last"].value;
   let regLast=new RegExp("^[a-z]+[a-z\_]+[a-z]+$", "i");
   let result=(regLast.test(check));
+  lastValidationResult = result;
     
   if (result===true) {
     var text = document.querySelector(".last");
     text.dataset.errorVisible = "false";  
     var border = document.querySelector("#last");
     border.dataset.errorVisible ="false";
-  }
-    
+  }  
   else {
     var text = document.querySelector(".last");
     text.dataset.error = "Veuillez entrer un Nom valide";
@@ -91,54 +97,48 @@ function lastCheck() {
     var border = document.querySelector("#last");
     border.dataset.errorVisible ="true";
   }
-
 }
 
-                           //VERIFICATION DE LA DATE DE NAISSANCE
- function birthdateCheck() {
-  let check = document.forms["reserve"].elements["birthdate"].value;
-  let regDate=new RegExp("^[0-3]{1}[0-9]{1}[/]{1}[01]{1}[0-9]{1}[/]{1}[12]{1}[2-9]{3}$");
-  let result= (regDate.test(check));
-    
-  if (result===true) {
-    var text = document.querySelector(".birthdate");
-    text.dataset.errorVisible = "false";
-  
-  var border = document.querySelector("#birthdate");
-  border.dataset.errorVisible ="false";
-  }
-    
-  else {
-    var text = document.querySelector(".birthdate");
-    text.dataset.error = "Veuillez entrer une date valide";
-    text.dataset.errorVisible = "true";
-  
-  var border = document.querySelector("#birthdate");
-  border.dataset.errorVisible ="true";
-  }
- }
                             //VERIFICATION EMAIL
  function emailCheck() {
-  let check = document.forms["reserve"].elements["email"].value;
-  let regEmail=new RegExp("^[a-z]+[a-z0-9\.\-_]*[a-z0-9]+@[a-z0-9]+[a-z0-9\.\-_]*[a-z0-9]+$", "i");
-  let result= (regEmail.test(check));
+    let check = document.forms["reserve"].elements["email"].value;
+    let regEmail=new RegExp("^[a-z][a-z0-9\.\-_]*[a-z0-9]@[a-z0-9]+[a-z0-9\.\-_]*[a-z0-9]+$", "i");
+    let result= (regEmail.test(check));
+    emailCheckValidationResult;
     
   if (result===true) {
     var text = document.querySelector(".email");
     text.dataset.errorVisible = "false";
-  
-  var border = document.querySelector("#email");
-  border.dataset.errorVisible ="false";
-  }
-    
+    var border = document.querySelector("#email");
+    border.dataset.errorVisible ="false";
+  }  
   else {
     var text = document.querySelector(".email");
     text.dataset.error = "Veuillez entrer un mail valide";
     text.dataset.errorVisible = "true";
-  
-  var border = document.querySelector("#email");
-  border.dataset.errorVisible ="true";
+    var border = document.querySelector("#email");
+    border.dataset.errorVisible ="true";
   }
- }
+}
  
-
+                          //VERIFICATION DE LA DATE DE NAISSANCE
+function birthdateCheck() {
+  let check = document.forms["reserve"].elements["birthdate"].value;
+  let regDate=new RegExp("^[0-3]{1}[0-9]{1}[/]{1}[01]{1}[0-9]{1}[/]{1}[12]{1}[2-9]{3}$");
+  let result= (regDate.test(check));
+  birthdateCheckValidationResult;
+  
+  if (result===true) {
+    var text = document.querySelector(".birthdate");
+    text.dataset.errorVisible = "false";
+    var border = document.querySelector("#birthdate");
+    border.dataset.errorVisible ="false";
+    } 
+  else {
+    var text = document.querySelector(".birthdate");
+    text.dataset.error = "Veuillez entrer une date valide";
+    text.dataset.errorVisible = "true";
+    var border = document.querySelector("#birthdate");
+    border.dataset.errorVisible ="true";
+  }
+}
