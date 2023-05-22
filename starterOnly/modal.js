@@ -72,8 +72,6 @@ for (let i=0; i<competitionChoice.length; i++) {
 conditionAccepted.addEventListener("change", conditionAcceptedCheck);
 
 
-
-
  // VERIFICATION DU PRENOM
 function firstCheck() {
   let check = document.forms["reserve"].elements["first"].value;
@@ -122,7 +120,7 @@ function lastCheck() {
 //VERIFICATION EMAIL
  function emailCheck() {
     let check = document.forms["reserve"].elements["email"].value;
-    let regEmail=new RegExp("^[a-z][a-z0-9\.\-_]*[a-z0-9]@[a-z0-9]+[a-z0-9\.\-_]*[a-z0-9]+$", "i");
+    let regEmail=new RegExp("^[a-z][a-z0-9\.\-_]*[a-z0-9]@[a-z0-9]{2,}\.[a-z0-9\.\-_]*[a-z\-_]+$", "i");
     let result= (regEmail.test(check));
     emailValidationResult = result;
     
@@ -194,18 +192,47 @@ function conditionAcceptedCheck() {
 
 
 // validation du formulaire si bien rempli
-buttonClick = document.querySelector(".btn-submit");
+buttonClick = document.querySelector(".button");
 buttonClick.addEventListener("click", checking);
 
+
+if( buttonValid>3) {
+  alert(buttonValid); 
+}
+
+
+
+alert(buttonValid);
+/*if (buttonValid==1){
+  alert("essai");
+}*/
 
 function checking() {
   formCheckResult = !firstValidationResult/1 + !lastValidationResult/1 + !emailValidationResult/1 + !birthdateValidationResult/1 +
   !competitionNumberResult + !competitionChoiceResult + !conditionAcceptedResult/1;
+  document.querySelector(".button").disabled=true;
   if(formCheckResult==0) {
-    document.querySelector(".btn-submit").disabled=false;
+    //document.querySelector(".btn-submit").disabled=false;
+    var confirmationReceipt = document.querySelector(".button");
+    confirmationReceipt.value = "Fermer";
+    let removeForm = document.querySelectorAll(".formData");
+    for(var j=0; j<removeForm.length; j++) {
+    removeForm[j].style.display = "none";
+    }
+    let thankMessage = document.querySelector(".text-label");
+    thankMessage.style.paddingTop = "300px";
+    thankMessage.style.paddingBottom = "310px";
+    thankMessage.style.fontSize = "25px";
+    thankMessage.style.textAlign = "center";
+    thankMessage.style.textIndent = "50px";
+    let prenom = document.forms["reserve"].elements["first"].value;
+    thankMessage.textContent ="Merci "+ prenom + " pour votre inscription à GameOn !";
+    buttonValid="1";
   }
   else {
-    document.querySelector(".btn-submit").disabled=true;
-    buttonValid= 1;
+    buttonValid="0";
   }
 }
+  
+  
+ 
