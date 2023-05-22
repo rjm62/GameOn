@@ -30,33 +30,51 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
+
  //fonction fermeture modal form
 function closeModal() {
   modalbg.style.display = "none";
 }
 
- //  VERIFICATION ENTREES FORMULAIRE
+
+ // VARIABLES VERIFICATION ENTREES FORMULAIRE
 var first = document.querySelector("#first"); 
 var last = document.querySelector("#last");
 var email = document.querySelector("#email");
 var birthdate = document.querySelector("#birthdate");
-var state
+var competitionQuantity = document.querySelector("#quantity");
+var competitionChoice= document.querySelectorAll("#location1, #location2, #location3, #location4, #location5, #location6");
+var conditionAccepted = document.querySelector("#checkbox1");
+var buttonClick;
+var buttonValid;
+ 
+//  VARIABLES POUR RECUPERATION DES: "DONNEES PERSONNELLES" "COCHE SUR CONDITIONS GENERALES"  "NOMBRE DE TOURNOIS"  "CHOIX COMPETITION"
+var firstValidationResult;
+var lastValidationResult;
+var emailValidationResult;
+var birthdateValidationResult;      
+var conditionAcceptedResult;
+var competitionChoiceResult; 
+var competitionNumberResult;
+var formCheckResult;
+
+// ECOUTE DES EVENEMENTS
 first.addEventListener("change", firstCheck);
 last.addEventListener("change", lastCheck);
 email.addEventListener("change", emailCheck);
 birthdate.addEventListener("change", birthdateCheck);
+competitionQuantity.addEventListener("change", competitionQuantityCheck);
 
-      //  RECUPERATION: "DONNEES PERSONNELLES" "COCHE SUR CONDITIONS GENERALES"  "NOMBRE DE TOURNOIS"  "CHOIX COMPETITION"
-var firstValidationResult;
-var lastValidationResult;
-var emailCheckValidationResult;
-var birthdateCheckValidationResult;      
-var conditionAccepted = document.forms["reserve"].elements["checkbox1"].checked;
-var choiceCompetition = document.forms["reserve"].elements["location"].value; 
-var numberCompetition = document.forms["reserve"].elements["quantity"].value;
+for (let i=0; i<competitionChoice.length; i++) {
+  competitionChoice[i].addEventListener("change", competitionChoiceCheck);
+  };
+
+conditionAccepted.addEventListener("change", conditionAcceptedCheck);
 
 
-                        // VERIFICATION DU PRENOM
+
+
+ // VERIFICATION DU PRENOM
 function firstCheck() {
   let check = document.forms["reserve"].elements["first"].value;
   let regFirst=new RegExp("^[a-z]+[a-z\-_]{1}[a-z]+$", "i");
@@ -68,16 +86,17 @@ function firstCheck() {
     text.dataset.errorVisible = "false";  
     var border = document.querySelector("#first");
     border.dataset.errorVisible ="false";
+    document.querySelector(".btn-submit").disabled=false;
   } 
   else {
     var text = document.querySelector(".first");
-    text.dataset.error = "Veuillez entrer un prénom valide";
+    text.dataset.error = "Veuillez entrer un prénom (minimum 2 caractères)";
     text.dataset.errorVisible = "true"; 
     var border = document.querySelector("#first");
     border.dataset.errorVisible ="true";
   }
 }
-                          //VERIFICATION DU NOM
+//VERIFICATION DU NOM
 function lastCheck() {
   let check = document.forms["reserve"].elements["last"].value;
   let regLast=new RegExp("^[a-z]+[a-z\_]+[a-z]+$", "i");
@@ -89,28 +108,30 @@ function lastCheck() {
     text.dataset.errorVisible = "false";  
     var border = document.querySelector("#last");
     border.dataset.errorVisible ="false";
+    document.querySelector(".btn-submit").disabled=false;
   }  
   else {
     var text = document.querySelector(".last");
-    text.dataset.error = "Veuillez entrer un Nom valide";
+    text.dataset.error = "Veuillez entrer un Nom (minimum 2 caractères)";
     text.dataset.errorVisible = "true"; 
     var border = document.querySelector("#last");
     border.dataset.errorVisible ="true";
   }
 }
 
-                            //VERIFICATION EMAIL
+//VERIFICATION EMAIL
  function emailCheck() {
     let check = document.forms["reserve"].elements["email"].value;
     let regEmail=new RegExp("^[a-z][a-z0-9\.\-_]*[a-z0-9]@[a-z0-9]+[a-z0-9\.\-_]*[a-z0-9]+$", "i");
     let result= (regEmail.test(check));
-    emailCheckValidationResult;
+    emailValidationResult = result;
     
   if (result===true) {
     var text = document.querySelector(".email");
     text.dataset.errorVisible = "false";
     var border = document.querySelector("#email");
     border.dataset.errorVisible ="false";
+    document.querySelector(".btn-submit").disabled=false;
   }  
   else {
     var text = document.querySelector(".email");
@@ -121,12 +142,14 @@ function lastCheck() {
   }
 }
  
-                          //VERIFICATION DE LA DATE DE NAISSANCE
+ //VERIFICATION DE LA DATE DE NAISSANCE
 function birthdateCheck() {
-  let check = document.forms["reserve"].elements["birthdate"].value;
-  let regDate=new RegExp("^[0-3]{1}[0-9]{1}[/]{1}[01]{1}[0-9]{1}[/]{1}[12]{1}[2-9]{3}$");
+  birthdateValidationResult=1;
+  document.querySelector(".btn-submit").disabled=false;
+  /*let check = document.forms["reserve"].elements["birthdate"].value;
+  let regDate=new RegExp("^[0-9]*[/]{1}[0-9]*[/]{1}[0-9]*$");
   let result= (regDate.test(check));
-  birthdateCheckValidationResult;
+  birthdateValidationResult = result;
   
   if (result===true) {
     var text = document.querySelector(".birthdate");
@@ -140,5 +163,49 @@ function birthdateCheck() {
     text.dataset.errorVisible = "true";
     var border = document.querySelector("#birthdate");
     border.dataset.errorVisible ="true";
+  }*/
+}
+
+//verification d'avoir rentré un nombre de 0 à 99 dans le champs
+function competitionQuantityCheck() {
+ competitionNumberResult = document.forms["reserve"].elements["quantity"].value;
+  if ( 0<= competitionNumberResult & competitionNumberResult<99) {
+    competitionNumberResult=1;
+    document.querySelector(".btn-submit").disabled=false;
+  }
+  else {
+    competitionNumberResult=0;
+  }
+}
+
+ // verification d'avoir choisi un tournoi pour cette année 
+function competitionChoiceCheck() {
+  competitionChoiceResult=1;
+  document.querySelector(".btn-submit").disabled=false;
+}
+
+// verification case cochée dans condition acceptée
+function conditionAcceptedCheck() {
+  conditionAcceptedResult = document.forms["reserve"].elements["checkbox1"].checked;
+  if(conditionAcceptedResult==1) {
+    document.querySelector(".btn-submit").disabled=false;
+  }
+}
+
+
+// validation du formulaire si bien rempli
+buttonClick = document.querySelector(".btn-submit");
+buttonClick.addEventListener("click", checking);
+
+
+function checking() {
+  formCheckResult = !firstValidationResult/1 + !lastValidationResult/1 + !emailValidationResult/1 + !birthdateValidationResult/1 +
+  !competitionNumberResult + !competitionChoiceResult + !conditionAcceptedResult/1;
+  if(formCheckResult==0) {
+    document.querySelector(".btn-submit").disabled=false;
+  }
+  else {
+    document.querySelector(".btn-submit").disabled=true;
+    buttonValid= 1;
   }
 }
