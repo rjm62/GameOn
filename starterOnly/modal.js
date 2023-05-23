@@ -196,23 +196,11 @@ buttonClick = document.querySelector(".button");
 buttonClick.addEventListener("click", checking);
 
 
-if( buttonValid>3) {
-  alert(buttonValid); 
-}
-
-
-
-alert(buttonValid);
-/*if (buttonValid==1){
-  alert("essai");
-}*/
-
 function checking() {
   formCheckResult = !firstValidationResult/1 + !lastValidationResult/1 + !emailValidationResult/1 + !birthdateValidationResult/1 +
   !competitionNumberResult + !competitionChoiceResult + !conditionAcceptedResult/1;
   document.querySelector(".button").disabled=true;
   if(formCheckResult==0) {
-    //document.querySelector(".btn-submit").disabled=false;
     var confirmationReceipt = document.querySelector(".button");
     confirmationReceipt.value = "Fermer";
     let removeForm = document.querySelectorAll(".formData");
@@ -233,6 +221,3 @@ function checking() {
     buttonValid="0";
   }
 }
-  
-  
- 
