@@ -1,4 +1,23 @@
 var bgroundPosition = 0;
+var reset=0;
+var check;
+var result;
+var buttonClick;
+var text;
+var border;
+var openModalConfirmation;
+var closeModalBody;
+var thankMessage;
+var formCheckResult;
+var prenom;
+var message;
+var resultsArray =["firstValidationResult", "lastValidationResult", "emailValidationResult", "birthdateValidationResult", "competitionNumberResult",
+"competitionChoiceResult", "conditionAcceptedResult"];
+
+for (var i=0; i<resultsArray.length; i++) {
+resultsArray[i]= 0;
+}
+
 
 function editNav() {
   var x = document.getElementById("myTopnav");
@@ -14,7 +33,6 @@ const returnHomePage =document.querySelector(".close")
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-
 const displayHeader = document.querySelector("header");
 const displayHeroSection = document.querySelector(".hero-section");
 const displayFooter = document.querySelector("footer");
@@ -28,7 +46,22 @@ returnHomePage.addEventListener("click", closeModal);
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  if (reset==1) {                   //dans le cas ou la page de confirmation est affichée
+    openModalConfirmation = document.querySelector(".modalConfirmation");
+    openModalConfirmation.style.display = "none";
+    document.reserve.reset();      // vide tous les champs du formulaire
+    message= document.querySelector(".button")
+    message.value="C'est parti";   // remets le texte "C'est parti" dans le bouton
+    var closeModalBody = document.querySelector(".modal-body");
+    closeModalBody.style.display = "block";
+    for (var i=0; i<resultsArray.length; i++) { // reset les variables pour les résultats
+    resultsArray[i]= 0;
+    reset=0;
+    }
+    
+  }
 }
+
 
 
  //fonction fermeture modal form
@@ -45,18 +78,6 @@ var birthdate = document.querySelector("#birthdate");
 var competitionQuantity = document.querySelector("#quantity");
 var competitionChoice= document.querySelectorAll("#location1, #location2, #location3, #location4, #location5, #location6");
 var conditionAccepted = document.querySelector("#checkbox1");
-var buttonClick;
-var buttonValid;
- 
-//  VARIABLES POUR RECUPERATION DES: "DONNEES PERSONNELLES" "COCHE SUR CONDITIONS GENERALES"  "NOMBRE DE TOURNOIS"  "CHOIX COMPETITION"
-var firstValidationResult;
-var lastValidationResult;
-var emailValidationResult;
-var birthdateValidationResult;      
-var conditionAcceptedResult;
-var competitionChoiceResult; 
-var competitionNumberResult;
-var formCheckResult;
 
 // ECOUTE DES EVENEMENTS
 first.addEventListener("change", firstCheck);
@@ -64,160 +85,135 @@ last.addEventListener("change", lastCheck);
 email.addEventListener("change", emailCheck);
 birthdate.addEventListener("change", birthdateCheck);
 competitionQuantity.addEventListener("change", competitionQuantityCheck);
-
 for (let i=0; i<competitionChoice.length; i++) {
   competitionChoice[i].addEventListener("change", competitionChoiceCheck);
   };
-
 conditionAccepted.addEventListener("change", conditionAcceptedCheck);
 
 
  // VERIFICATION DU PRENOM
 function firstCheck() {
-  let check = document.forms["reserve"].elements["first"].value;
-  let regFirst=new RegExp("^[a-z]+[a-z\-_]{1}[a-z]+$", "i");
-  let result=(regFirst.test(check));
-  firstValidationResult = result;
+  check = document.forms["reserve"].elements["first"].value;
+  let regFirst=new RegExp("^[a-z][a-z\-_]+$", "i");
+  result=(regFirst.test(check));
+  resultsArray[0] = result;
 
   if (result===true) {
-    var text = document.querySelector(".first");
+    text = document.querySelector(".first");
     text.dataset.errorVisible = "false";  
-    var border = document.querySelector("#first");
+    border = document.querySelector("#first");
     border.dataset.errorVisible ="false";
-    document.querySelector(".btn-submit").disabled=false;
+    document.querySelector(".button").disabled=false;
   } 
   else {
-    var text = document.querySelector(".first");
+    text = document.querySelector(".first");
     text.dataset.error = "Veuillez entrer un prénom (minimum 2 caractères)";
     text.dataset.errorVisible = "true"; 
-    var border = document.querySelector("#first");
+    border = document.querySelector("#first");
     border.dataset.errorVisible ="true";
   }
 }
 //VERIFICATION DU NOM
 function lastCheck() {
-  let check = document.forms["reserve"].elements["last"].value;
-  let regLast=new RegExp("^[a-z]+[a-z\_]+[a-z]+$", "i");
-  let result=(regLast.test(check));
-  lastValidationResult = result;
+  check = document.forms["reserve"].elements["last"].value;
+  let regLast=new RegExp("^[a-z][a-z\_]+$", "i");
+  result=(regLast.test(check));
+  resultsArray[1] = result;
     
   if (result===true) {
-    var text = document.querySelector(".last");
+    text = document.querySelector(".last");
     text.dataset.errorVisible = "false";  
-    var border = document.querySelector("#last");
+    border = document.querySelector("#last");
     border.dataset.errorVisible ="false";
-    document.querySelector(".btn-submit").disabled=false;
+    document.querySelector(".button").disabled=false;
   }  
   else {
-    var text = document.querySelector(".last");
+    text = document.querySelector(".last");
     text.dataset.error = "Veuillez entrer un Nom (minimum 2 caractères)";
     text.dataset.errorVisible = "true"; 
-    var border = document.querySelector("#last");
+    border = document.querySelector("#last");
     border.dataset.errorVisible ="true";
   }
 }
 
 //VERIFICATION EMAIL
  function emailCheck() {
-    let check = document.forms["reserve"].elements["email"].value;
-    let regEmail=new RegExp("^[a-z][a-z0-9\.\-_]*[a-z0-9]@[a-z0-9]{2,}\.[a-z0-9\.\-_]*[a-z\-_]+$", "i");
-    let result= (regEmail.test(check));
-    emailValidationResult = result;
+    check = document.forms["reserve"].elements["email"].value;
+    let regEmail=new RegExp("^[a-z][a-z0-9\.\-_]*[a-z0-9]@[a-z0-9]{2,}\.[a-z0-9\.\-_]*[a-z\-_]{2,}$", "i");
+    result= (regEmail.test(check));
+    resultsArray[2] = result;
     
   if (result===true) {
-    var text = document.querySelector(".email");
+    text = document.querySelector(".email");
     text.dataset.errorVisible = "false";
-    var border = document.querySelector("#email");
+    border = document.querySelector("#email");
     border.dataset.errorVisible ="false";
-    document.querySelector(".btn-submit").disabled=false;
+    document.querySelector(".button").disabled=false;
   }  
   else {
-    var text = document.querySelector(".email");
+    text = document.querySelector(".email");
     text.dataset.error = "Veuillez entrer un mail valide";
     text.dataset.errorVisible = "true";
-    var border = document.querySelector("#email");
+    border = document.querySelector("#email");
     border.dataset.errorVisible ="true";
   }
 }
  
  //VERIFICATION DE LA DATE DE NAISSANCE
 function birthdateCheck() {
-  birthdateValidationResult=1;
-  document.querySelector(".btn-submit").disabled=false;
-  /*let check = document.forms["reserve"].elements["birthdate"].value;
-  let regDate=new RegExp("^[0-9]*[/]{1}[0-9]*[/]{1}[0-9]*$");
-  let result= (regDate.test(check));
-  birthdateValidationResult = result;
-  
-  if (result===true) {
-    var text = document.querySelector(".birthdate");
-    text.dataset.errorVisible = "false";
-    var border = document.querySelector("#birthdate");
-    border.dataset.errorVisible ="false";
-    } 
-  else {
-    var text = document.querySelector(".birthdate");
-    text.dataset.error = "Veuillez entrer une date valide";
-    text.dataset.errorVisible = "true";
-    var border = document.querySelector("#birthdate");
-    border.dataset.errorVisible ="true";
-  }*/
+  resultsArray[3]=1;
 }
 
 //verification d'avoir rentré un nombre de 0 à 99 dans le champs
 function competitionQuantityCheck() {
- competitionNumberResult = document.forms["reserve"].elements["quantity"].value;
-  if ( 0<= competitionNumberResult & competitionNumberResult<99) {
-    competitionNumberResult=1;
-    document.querySelector(".btn-submit").disabled=false;
-  }
-  else {
-    competitionNumberResult=0;
+ resultsArray[4] = document.forms["reserve"].elements["quantity"].value;
+  if ( 0<= resultsArray[4] & resultsArray[4] <99) {
+    resultsArray[4]=1;
+    document.querySelector(".button").disabled=false;
   }
 }
 
- // verification d'avoir choisi un tournoi pour cette année 
+ //verification d'avoir choisi un tournoi pour cette année 
 function competitionChoiceCheck() {
-  competitionChoiceResult=1;
-  document.querySelector(".btn-submit").disabled=false;
+  resultsArray[5]=1;
+ document.querySelector(".button").disabled=false;
 }
 
 // verification case cochée dans condition acceptée
 function conditionAcceptedCheck() {
-  conditionAcceptedResult = document.forms["reserve"].elements["checkbox1"].checked;
-  if(conditionAcceptedResult==1) {
-    document.querySelector(".btn-submit").disabled=false;
+  resultsArray[6] = document.forms["reserve"].elements["checkbox1"].checked;
+  if(resultsArray[6]==1) {
+  document.querySelector(".button").disabled=false;
   }
 }
 
 
-// validation du formulaire si bien rempli
+ //verification du formulaire si bien rempli
+
 buttonClick = document.querySelector(".button");
 buttonClick.addEventListener("click", checking);
 
 
+
 function checking() {
-  formCheckResult = !firstValidationResult/1 + !lastValidationResult/1 + !emailValidationResult/1 + !birthdateValidationResult/1 +
-  !competitionNumberResult + !competitionChoiceResult + !conditionAcceptedResult/1;
+  formCheckResult = !resultsArray[0]/1 + !resultsArray[1]/1 + !resultsArray[2]/1 + !resultsArray[3]/1 + !resultsArray[4]/1 +
+  !resultsArray[5]/1 + !resultsArray[6]/1; //  si tous les champs sont correctement remplis, tous les "!resultsArray" valent "0".
+                                          //   De ce fait la somme fait "0" (le formulaire peut donc être confirmé).
   document.querySelector(".button").disabled=true;
-  if(formCheckResult==0) {
-    var confirmationReceipt = document.querySelector(".button");
-    confirmationReceipt.value = "Fermer";
-    let removeForm = document.querySelectorAll(".formData");
-    for(var j=0; j<removeForm.length; j++) {
-    removeForm[j].style.display = "none";
-    }
-    let thankMessage = document.querySelector(".text-label");
-    thankMessage.style.paddingTop = "300px";
-    thankMessage.style.paddingBottom = "310px";
-    thankMessage.style.fontSize = "25px";
-    thankMessage.style.textAlign = "center";
-    thankMessage.style.textIndent = "50px";
-    let prenom = document.forms["reserve"].elements["first"].value;
-    thankMessage.textContent ="Merci "+ prenom + " pour votre inscription à GameOn !";
-    buttonValid="1";
+  if(formCheckResult==0) {                
+    reset=1;    // cette variable servira à vider les champs du formulaire
+    closeModalBody = document.querySelector(".modal-body");
+    closeModalBody.style.display = "none";
+    openModalConfirmation = document.querySelector(".modalConfirmation");
+    openModalConfirmation.style.display = "flex";    // affichage du container de remerciement
+    thankMessage = document.querySelector(".thankYou");
+    prenom = document.forms["reserve"].elements["first"].value;    // recupération du prénom dans le champ "first" du formulaire
+    thankMessage.textContent ="Merci "+ prenom +" pour votre inscription à GameOn !";   // réalisation du texte à afficher dans la fenetre de confirmation
+    var buttonConfirmation = document.querySelector(".btn-confirmation");
+    buttonConfirmation.addEventListener("click", closeModal); // fermeture de la modal de confirmation
   }
   else {
-    buttonValid="0";
+    message= document.querySelector(".button")     //modification du texte dans le bouton d'envoi
+    message.value="Merci de compléter avant de réappuyer";
   }
 }
