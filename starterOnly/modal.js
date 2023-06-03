@@ -196,7 +196,7 @@ function competitionQuantityCheck() {
   else {
     resultsArray[4]=0;
     text = document.querySelector(".quantity");
-    text.dataset.error = "Le nombre est trop important";
+    text.dataset.error = "Le nombre doit être compris entre 0 et 99";
     text.dataset.errorVisible = "true";
     border = document.querySelector("#quantity");
     border.dataset.errorVisible ="true";
