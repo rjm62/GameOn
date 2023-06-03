@@ -42,7 +42,6 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 returnHomePage.addEventListener("click", closeModal);
 
-
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
@@ -62,13 +61,10 @@ function launchModal() {
   }
 }
 
-
-
  //fonction fermeture modal form
 function closeModal() {
   modalbg.style.display = "none";
 }
-
 
  // VARIABLES VERIFICATION ENTREES FORMULAIRE
 var first = document.querySelector("#first"); 
@@ -89,7 +85,6 @@ for (let i=0; i<competitionChoice.length; i++) {
   competitionChoice[i].addEventListener("change", competitionChoiceCheck);
   };
 conditionAccepted.addEventListener("change", conditionAcceptedCheck);
-
 
  // VERIFICATION DU PRENOM
 function firstCheck() {
@@ -161,8 +156,31 @@ function lastCheck() {
  
  //VERIFICATION DE LA DATE DE NAISSANCE
 function birthdateCheck() {
-  resultsArray[3]=1;
-}
+  check = document.forms["reserve"].elements["birthdate"].value;
+  var regBirthdate=new RegExp("[0-9]{4}");
+  result= (regBirthdate.exec(check));
+  console.log(result);
+  console.log(regBirthdate);
+  laDate = new Date();
+  annee =laDate.getFullYear();
+  if ((parseInt(annee)-parseInt(result))<16) {
+    resultsArray[3]=0;
+    text = document.querySelector(".birthdate");
+    text.dataset.error = "Attention vous êtes trop jeune";
+    text.dataset.errorVisible = "true";
+    border = document.querySelector("#birthdate");
+    border.dataset.errorVisible ="true";
+   }
+  
+      else {
+      resultsArray[3]=1;
+      text = document.querySelector(".birthdate");
+      text.dataset.errorVisible = "false";
+      border = document.querySelector("#birthdate");
+      border.dataset.errorVisible ="false";
+      document.querySelector(".button").disabled=false;
+      }
+   }
 
 //verification d'avoir rentré un nombre de 0 à 99 dans le champs
 function competitionQuantityCheck() {
@@ -187,13 +205,9 @@ function conditionAcceptedCheck() {
   }
 }
 
-
  //verification du formulaire si bien rempli
-
 buttonClick = document.querySelector(".button");
 buttonClick.addEventListener("click", checking);
-
-
 
 function checking() {
   formCheckResult = !resultsArray[0]/1 + !resultsArray[1]/1 + !resultsArray[2]/1 + !resultsArray[3]/1 + !resultsArray[4]/1 +
