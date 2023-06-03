@@ -185,9 +185,21 @@ function birthdateCheck() {
 //verification d'avoir rentré un nombre de 0 à 99 dans le champs
 function competitionQuantityCheck() {
  resultsArray[4] = document.forms["reserve"].elements["quantity"].value;
-  if ( 0<= resultsArray[4] & resultsArray[4] <99) {
+  if ( 0<= parseInt(resultsArray[4]) & parseInt(resultsArray[4]) <100) {
     resultsArray[4]=1;
+    text = document.querySelector(".quantity");
+    text.dataset.errorVisible = "false";
+    border = document.querySelector("#quantity");
+    border.dataset.errorVisible ="false";
     document.querySelector(".button").disabled=false;
+  }
+  else {
+    resultsArray[4]=0;
+    text = document.querySelector(".quantity");
+    text.dataset.error = "Le nombre est trop important";
+    text.dataset.errorVisible = "true";
+    border = document.querySelector("#quantity");
+    border.dataset.errorVisible ="true";
   }
 }
 
