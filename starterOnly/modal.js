@@ -50,7 +50,8 @@ function launchModal() {
     openModalConfirmation.style.display = "none";
     document.reserve.reset();      // vide tous les champs du formulaire
     message= document.querySelector(".button")
-    message.value="C'est parti";   // remets le texte "C'est parti" dans le bouton
+    message.value="C'est parti";   // remets le texte "C'est parti" dans le bouton message.style.color="yellow";
+    message.style.color="white";
     var closeModalBody = document.querySelector(".modal-body");
     closeModalBody.style.display = "block";
     for (var i=0; i<resultsArray.length; i++) { // reset les variables pour les résultats
@@ -95,6 +96,7 @@ function firstCheck() {
 
   if (result===true) {
     text = document.querySelector(".first");
+    text.dataset.error = "";
     text.dataset.errorVisible = "false";  
     border = document.querySelector("#first");
     border.dataset.errorVisible ="false";
@@ -117,7 +119,7 @@ function lastCheck() {
     
   if (result===true) {
     text = document.querySelector(".last");
-    text.dataset.errorVisible = "false";  
+    text.dataset.error = "";
     border = document.querySelector("#last");
     border.dataset.errorVisible ="false";
     document.querySelector(".button").disabled=false;
@@ -134,12 +136,13 @@ function lastCheck() {
 //VERIFICATION EMAIL
  function emailCheck() {
     check = document.forms["reserve"].elements["email"].value;
-    let regEmail=new RegExp("^[a-z][a-z0-9\.\-_]*[a-z0-9]@[a-z0-9]{2,}\.[a-z0-9\.\-_]*[a-z\-_]{2,}$", "i");
+    let regEmail=new RegExp("^[a-z0-9\.\-_]+[a-z0-9]*@[a-z0-9]{2,}\.[a-z\.\-_]+[a-z\-_]{2,}$", "i");
     result= (regEmail.test(check));
     resultsArray[2] = result;
     
   if (result===true) {
     text = document.querySelector(".email");
+    text.dataset.error = "";
     text.dataset.errorVisible = "false";
     border = document.querySelector("#email");
     border.dataset.errorVisible ="false";
@@ -166,7 +169,7 @@ function birthdateCheck() {
   if ((parseInt(annee)-parseInt(result))<16) {
     resultsArray[3]=0;
     text = document.querySelector(".birthdate");
-    text.dataset.error = "Attention vous êtes trop jeune";
+    text.dataset.error = "Attention vous devez avoir minimum 16 ans";
     text.dataset.errorVisible = "true";
     border = document.querySelector("#birthdate");
     border.dataset.errorVisible ="true";
@@ -175,6 +178,7 @@ function birthdateCheck() {
       else {
       resultsArray[3]=1;
       text = document.querySelector(".birthdate");
+      text.dataset.error = "";
       text.dataset.errorVisible = "false";
       border = document.querySelector("#birthdate");
       border.dataset.errorVisible ="false";
@@ -238,8 +242,13 @@ function checking() {
     var buttonConfirmation = document.querySelector(".btn-confirmation");
     buttonConfirmation.addEventListener("click", closeModal); // fermeture de la modal de confirmation
   }
-  else {
+  else if(formCheckResult==1 && resultsArray[6]/1==0) {
     message= document.querySelector(".button")     //modification du texte dans le bouton d'envoi
-    message.value="Merci de compléter avant de réappuyer";
+    message.value="veuillez lire et accepter les conditions ";
+    message.style.color="yellow";
   }
+  else { message= document.querySelector(".button")     //modification du texte dans le bouton d'envoi
+  message.value="Merci de compléter le formulaire ";
+  }
+
 }
