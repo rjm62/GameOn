@@ -72,8 +72,8 @@ main {
   font-weight: bolder;
   color: black;
   padding-top: 0.5vw;
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
@@ -110,6 +110,7 @@ main {
   left: 0;
   top: 0;
   width: 100%;
+  height:100%;
   overflow: auto;
   background-color: rgba(26, 39, 156, 0.4);
 }
@@ -367,7 +368,6 @@ input {
   font-size: 18px;
 }
 .hero-section {
-  height: 550px;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -375,6 +375,7 @@ input {
   box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
   margin-bottom: 0px;
   overflow-wrap: break-word;
+  max-height: 550px;
 
 
 }
@@ -449,7 +450,14 @@ footer {
   padding-left: 2vw;
   padding-right: 2vw;
   margin: 0 20px;
+
 } 
+@media screen and (max-width: 1350px) {
+.hero-section {
+   max-height: 3000px;
+  }
+}
+
 @media screen and (max-width: 1100px) {
   .hero-section {
     display: block;
@@ -565,6 +573,10 @@ footer {
     float: right;
     display: block;
   }
+  .hero-section {
+    display: block;
+  }
+
   .hero-headline {
     font-size: 1.7em;
 }
